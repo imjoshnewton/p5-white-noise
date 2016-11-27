@@ -1,0 +1,46 @@
+// Variables
+$trans-grey: rgba(106, 106, 106, 0.5);
+$trans-grey-70: rgba(106, 106, 106, 0.7);
+$trans-red: rgba(175, 0, 0, 0.5);
+$trans-pink: rgba(225, 0, 0, 0.5);
+$trans-brown: rgba(139, 69, 19, 0.5);
+$trans-white-50: rgba(200,200,200,0.5);
+$trans-white-20: rgba(200,200,200,0.2);
+
+body {
+	padding: 0;
+	margin: 0;
+	background-color: #ddd;
+}
+
+canvas {
+	vertical-align: top;
+}
+
+#noise-area {
+	background-color: $trans-grey;
+}
+
+#all-stop {
+	background-color: $trans-red;
+}
+
+#pink-noise {
+	background-color: $trans-pink;
+}
+
+#brown-noise {
+	background-color: $trans-brown;
+}
+
+#white-noise {
+	background-color: $trans-white-50;
+}
+
+#vinyl-noise {
+	background-color: $trans-grey-70;
+}
+
+#ambiance-volume {
+	background-color: $trans-white-20;
+}
