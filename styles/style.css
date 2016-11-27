@@ -1,0 +1,17 @@
+body { padding: 0; margin: 0; background-color: #ddd; }
+
+canvas { vertical-align: top; }
+
+#noise-area { background-color: rgba(106, 106, 106, 0.5); }
+
+#all-stop { background-color: rgba(175, 0, 0, 0.5); }
+
+#pink-noise { background-color: rgba(225, 0, 0, 0.5); }
+
+#brown-noise { background-color: rgba(139, 69, 19, 0.5); }
+
+#white-noise { background-color: rgba(200, 200, 200, 0.5); }
+
+#vinyl-noise { background-color: rgba(106, 106, 106, 0.7); }
+
+#ambiance-volume { background-color: rgba(200, 200, 200, 0.2); }
