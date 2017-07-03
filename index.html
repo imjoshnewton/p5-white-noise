@@ -2,16 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    
+
     <!-- Mobile optimization and mobile app abilities -->
-	<meta name="viewport" content="width=device-width initial-scale=1" />
-	<meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
-	<meta name="apple-mobile-web-app-capable" content="yes" />
+  	<meta name="viewport" content="width=device-width initial-scale=1" />
+  	<meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
+  	<meta name="apple-mobile-web-app-capable" content="yes" />
 
-	<link rel="stylesheet" href="styles/style.css" />
+  	<link rel="stylesheet" href="styles/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
 
-    <title>P5 White Noise App v1.0</title>
+    <title>P5 Noise Machine v1.0</title>
 
+    <script src="https://use.fontawesome.com/b45a495621.js"></script>
     <script src="libraries/p5.js" type="text/javascript"></script>
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
     <script src="libraries/p5.sound.js" type="text/javascript"></script>
@@ -19,5 +22,12 @@
     <script src="js/sketch.js" type="text/javascript"></script>
   </head>
   <body>
+    <div id="container">
+      <div id="area-container">
+      </div>
+      <div id="button-container">
+        <!--<i class="fa fa-long-arrow-left fa-3x animated slideInRight" aria-hidden="true"></i>-->
+      </div>
+  </div>
   </body>
 </html>

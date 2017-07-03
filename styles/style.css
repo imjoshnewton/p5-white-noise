@@ -1,17 +1,124 @@
-body { padding: 0; margin: 0; background-color: #ddd; }
+body, html {
+  align-items: center;
+  background-color: #ddd;
+  display: flex;
+  font-family: 'Roboto';
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  margin: 0;
+  padding: 0; }
 
-canvas { vertical-align: top; }
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0; }
 
-#noise-area { background-color: rgba(106, 106, 106, 0.5); }
+.noise-button {
+  background-color: rgba(250, 250, 250, 0.9);
+  border-radius: 100%;
+  box-shadow: 0 2px 210px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  color: #5e5e5e;
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 25px;
+  margin-bottom: 40%;
+  transform: scale(1.01);
+  transition: all 250ms;
+  width: 40px; }
+  .noise-button:first-of-type {
+    margin-top: 20px; }
+    .noise-button:first-of-type:after {
+      margin-left: 25px; }
+  .noise-button:hover {
+    transform: scale(1.25); }
+    .noise-button:hover:after {
+      opacity: 1; }
+  .noise-button:last-of-type {
+    margin-bottom: 20px; }
+  .noise-button.playing {
+    transform: scale(1.1); }
+  .noise-button:after {
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin-left: 52px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 250ms;
+    white-space: nowrap; }
 
-#all-stop { background-color: rgba(175, 0, 0, 0.5); }
+#container {
+  display: flex;
+  position: absolute;
+  z-index: 1000; }
 
-#pink-noise { background-color: rgba(225, 0, 0, 0.5); }
+#area-container {
+  border: 8px solid #fff;
+  box-shadow: 0 2px 210px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1001; }
 
-#brown-noise { background-color: rgba(139, 69, 19, 0.5); }
+#button-container {
+  align-items: center;
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px 0; }
+  #button-container i {
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    color: #5e5e5e;
+    position: absolute;
+    top: 20px;
+    right: -60px; }
 
-#white-noise { background-color: rgba(200, 200, 200, 0.5); }
+#all-stop {
+  animation-iteration-count: infinite;
+  animation-delay: 1s; }
+  #all-stop.fa-pause {
+    line-height: 40px; }
+    #all-stop.fa-pause:before {
+      margin-left: 12.5px; }
+    #all-stop.fa-pause:after {
+      content: "Pause"; }
+  #all-stop.fa-play {
+    line-height: 40px; }
+    #all-stop.fa-play:before {
+      margin-left: 14.5px; }
+    #all-stop.fa-play:after {
+      content: "Play"; }
 
-#vinyl-noise { background-color: rgba(106, 106, 106, 0.7); }
+#pink-noise {
+  background: url("http://imjoshnewton.me/images/pink.png"), rgba(250, 250, 250, 0.9);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center; }
+  #pink-noise:after {
+    content: "Pink Noise"; }
 
-#ambiance-volume { background-color: rgba(200, 200, 200, 0.2); }
+#brown-noise {
+  background: url("http://imjoshnewton.me/images/brown.png"), rgba(250, 250, 250, 0.9);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center; }
+  #brown-noise:after {
+    content: "Brown Noise"; }
+
+#white-noise {
+  background: url("http://imjoshnewton.me/images/noise.png"), rgba(250, 250, 250, 0.9);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center; }
+  #white-noise:after {
+    content: "White Noise"; }
+
+#vinyl-noise {
+  background: url("http://imjoshnewton.me/images/vinyl.png"), rgba(250, 250, 250, 0.9);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center; }
+  #vinyl-noise:after {
+    content: "Vinyl Pop"; }
