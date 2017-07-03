@@ -1,218 +1,285 @@
-/******************************************************************************/
-/**   Name:       p5 White Noise App
-/**   Version:    1.0
-/**   Author:     Josh Newton
-/**   Descript:   A graphical rewrite of my original White Noise App written
-/**               on the P5.js framework.
-/**   Notes:      Currently working on only updating certain axises based on
-/**               new atributes of the Marker class.
-/******************************************************************************/
-
-var noiseFFT, whiteNoise, myFilter, filterFreq, filterWidth, currentNoise, vinyl, ambiance;
-var noiseDivs = [];
-var canv;
+var noiseFFT,
+  whiteNoise,
+  myFilter,
+  filterFreq,
+  filterWidth,
+  currentNoise,
+  vinyl,
+  ambiance,
+  noiseDivs = [],
+  canv,
+  colors = ["#30CCC1", "#709996", "#55FF94", "#FF95BB", "#CC30B5"],
+  mDiam = 40,
+  played = false;
 
 function preload() {
-    ambiance = loadSound('audio/DPadBase.mp3');
-    vinyl = loadSound('audio/Vinyl.mp3');
+  vinyl = loadSound(
+    "https://s3.us-east-2.amazonaws.com/joshnewton/White+Noise/Vinyl.mp3");
 }
 
 function setup() {
-    // Basic Canbas Setup.
-    canv = createCanvas(windowWidth, windowHeight);
-    canv.style('max-height: 900px;');
-    noStroke();
+  // Basic Canvas Setup.
+  canv = createCanvas(windowWidth, windowHeight);
+  noStroke();
 
-    // Oscilator and Filter Setup and Init.
-    myFilter = new p5.LowPass();
-    whiteNoise = new p5.Noise();
-    currentNoise = 'white';
+  // Oscilator and Filter Setup and Init.
+  myFilter = new p5.LowPass();
+  whiteNoise = new p5.Noise();
+  currentNoise = "white";
 
-    whiteNoise.disconnect(); // Disconnect soundfile from master output...
-    myFilter.process(whiteNoise); // ...and connect to filter so we'll only hear LowPass.
-    myFilter.process(vinyl);
-    whiteNoise.start();
+  whiteNoise.disconnect(); // Disconnect soundfile from master output...
+  vinyl.disconnect();
+  myFilter.process(whiteNoise); // ...and connect to filter so we'll only hear LowPass.
+  myFilter.process(vinyl);
+  //whiteNoise.start();
 
-    noiseFFT = new p5.FFT();
-    noiseFFT.setInput(myFilter);
+  noiseFFT = new p5.FFT();
+  noiseFFT.setInput(myFilter);
 
-    // White Noise Setup.
-    noiseDivs[0] = new NoiseBox();
-    noiseDivs[0].container.size(width, height*.6);
-    noiseDivs[0].container.position(0, 0);
-    noiseDivs[0].container.id("noise-area");
+  var minHeight = windowHeight * 0.8 > 450
+    ? 450
+    : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8;
+  // White Noise Setup.
+  noiseDivs[0] = new NoiseBox();
+  noiseDivs[0].container.size(windowWidth * 0.45, minHeight);
+  noiseDivs[0].container.id("noise-area").parent("area-container");
 
-    noiseDivs[0].marker.init(noiseDivs[0].container.width*.075, noiseDivs[0].container.height*.85, true, true, width*.045);
+  var na = noiseDivs[0];
 
-    noiseDivs[0].container.touchStarted(function() {noiseDivs[0].hasAction=true;});
-    noiseDivs[0].container.touchEnded(function() {noiseDivs[0].hasAction=false;});
+  na.marker.init(
+    na.getX() + na.container.width / 8,
+    na.getY() + na.container.height / 2,
+    true,
+    true,
+    mDiam
+  );
 
-    // Ambiant Music Setup.
-    noiseDivs[1] = new NoiseBox();
-    noiseDivs[1].container.size(width, height*.1);
-    noiseDivs[1].container.position(0, height*.9);
-    noiseDivs[1].container.id("ambiance-volume");
+  noiseDivs[0].container.touchStarted(function() {
+    noiseDivs[0].hasAction = true;
+  });
+  noiseDivs[0].container.touchEnded(function() {
+    noiseDivs[0].hasAction = false;
+  });
 
-    noiseDivs[1].marker.init(noiseDivs[1].container.width*.85, noiseDivs[1].container.position().y+noiseDivs[1].container.height*.5, true, false, width*.045);
+  // Start Stop
+  noiseDivs[2] = new NoiseBox();
+  noiseDivs[2].container
+    .id("all-stop")
+    .class("noise-button fa fa-play animated tada")
+    .parent("button-container");
 
-    noiseDivs[1].container.touchStarted(function() {noiseDivs[1].hasAction=true;});
-    noiseDivs[1].container.touchEnded(function() {noiseDivs[1].hasAction=false;});
+  noiseDivs[2].hasMarker = false;
 
-    ambiance.setVolume(map(noiseDivs[1].marker.x, 0, noiseDivs[1].container.width, 0, 1));
-    ambiance.play();
+  noiseDivs[2].container.mouseClicked(function() {
+    if(!played) {
+      played = true;
+      this.elt.classList.remove('animated');
+    }
 
-    // Start Stop
-    noiseDivs[2] = new NoiseBox();
-    noiseDivs[2].container.size(width/5, height*.3);
-    noiseDivs[2].container.position(0, height*.6);
-    noiseDivs[2].container.id("all-stop");
+    if (noiseDivs[2].hasAction) {
+      this.elt.classList.remove("fa-pause");
+      this.elt.classList.add("fa-play");
 
-    noiseDivs[2].hasMarker = false;
+      if (currentNoise != "vinyl") {
+        whiteNoise.stop();
+      } else {
+        vinyl.stop();
+      }
+    } else {
+      this.elt.classList.remove("fa-play");
+      this.elt.classList.add("fa-pause");
 
-    noiseDivs[2].container.mouseClicked(function() {
-        if(!noiseDivs[2].hasAction) {
-            ambiance.stop();
-            if(currentNoise != 'vinyl') {
-                whiteNoise.stop();
-            }
-            else {
-                vinyl.stop();
-            }
-        }
-        else {
-            ambiance.play();
+      if (currentNoise != "vinyl") {
+        whiteNoise.start();
+      } else {
+        vinyl.play();
+      }
+    }
 
-            if(currentNoise != 'vinyl') {
-                whiteNoise.start();
-            }
-            else {
-                vinyl.play();
-            }
-        }
+    noiseDivs[2].toggleAction();
+  });
 
-        noiseDivs[2].toggleAction();
-    });
+  // Brown Noise
+  noiseDivs[4] = new NoiseBox();
+  noiseDivs[4].container
+    .id("brown-noise")
+    .class("noise-button")
+    .parent("button-container");
 
-    // Pink Noise
-    noiseDivs[3] = new NoiseBox();
-    noiseDivs[3].container.size(width/5, height*.3);
-    noiseDivs[3].container.position(width/5*2, height*.6);
-    noiseDivs[3].container.id("pink-noise");
+  noiseDivs[4].hasMarker = false;
 
-    noiseDivs[3].hasMarker = false;
+  noiseDivs[4].container.mousePressed(function() {
+    whiteNoise.setType("brown");
 
-    noiseDivs[3].container.mousePressed(function() {
-        whiteNoise.setType('pink');
+    if (noiseDivs[2].hasAction) {
+      whiteNoise.start();
 
-        if(!noiseDivs[2].hasAction) {
-            whiteNoise.start();
+      if (currentNoise == "vinyl") {
+        vinyl.stop();
+      }
+    }
 
-            if (currentNoise == 'vinyl') {
-                vinyl.stop();
-            }
-        }
+    currentNoise = "brown";
+  });
 
-        currentNoise = 'pink';
-    });
+  // Pink Noise
+  noiseDivs[3] = new NoiseBox();
+  noiseDivs[3].container
+    .id("pink-noise")
+    .class("noise-button")
+    .parent("button-container");
 
-    // Brown Noise
-    noiseDivs[4] = new NoiseBox();
-    noiseDivs[4].container.size(width/5, height*.3);
-    noiseDivs[4].container.position((width/5)*1, height*.6);
-    noiseDivs[4].container.id("brown-noise");
+  noiseDivs[3].hasMarker = false;
 
-    noiseDivs[4].hasMarker = false;
+  noiseDivs[3].container.mousePressed(function() {
+    whiteNoise.setType("pink");
 
-    noiseDivs[4].container.mousePressed(function() {
-        whiteNoise.setType('brown');
+    if (noiseDivs[2].hasAction) {
+      whiteNoise.start();
 
-        if(!noiseDivs[2].hasAction) {
-            whiteNoise.start();
+      if (currentNoise == "vinyl") {
+        vinyl.stop();
+      }
+    }
 
-            if (currentNoise == 'vinyl') {
-                vinyl.stop();
-            }
-        }
+    currentNoise = "pink";
+  });
 
-        currentNoise = 'brown';
-    });
+  // White Noise
+  noiseDivs[5] = new NoiseBox();
+  noiseDivs[5].container
+    .id("white-noise")
+    .class("noise-button")
+    .parent("button-container");
 
-    // White Noise
-    noiseDivs[5] = new NoiseBox();
-    noiseDivs[5].container.size(width/5, height*.3);
-    noiseDivs[5].container.position((width/5)*3, height*.6);
-    noiseDivs[5].container.id("white-noise");
+  noiseDivs[5].hasMarker = false;
 
-    noiseDivs[5].hasMarker = false;
+  noiseDivs[5].container.mousePressed(function() {
+    whiteNoise.setType("white");
 
-    noiseDivs[5].container.mousePressed(function() {
-        whiteNoise.setType('white');
+    if (noiseDivs[2].hasAction) {
+      whiteNoise.start();
 
-        if(!noiseDivs[2].hasAction) {
-            whiteNoise.start();
+      if (currentNoise == "vinyl") {
+        vinyl.stop();
+      }
+    }
 
-            if (currentNoise == 'vinyl') {
-                vinyl.stop();
-            }
-        }
+    currentNoise = "white";
+  });
 
-        currentNoise = 'white';
-    });
+  // Vinyl
+  noiseDivs[6] = new NoiseBox();
+  noiseDivs[6].container
+    .id("vinyl-noise")
+    .class("noise-button")
+    .parent("button-container");
 
-    // Vinyl
-    noiseDivs[6] = new NoiseBox();
-    noiseDivs[6].container.size(width/5, height*.3);
-    noiseDivs[6].container.position((width/5)*4, height*.6);
-    noiseDivs[6].container.id("vinyl-noise");
+  noiseDivs[6].hasMarker = false;
 
-    noiseDivs[6].hasMarker = false;
+  noiseDivs[6].container.mousePressed(function() {
+    if (noiseDivs[2].hasAction) {
+      whiteNoise.stop();
+      vinyl.play();
+      vinyl.loop(35);
+    }
 
-    noiseDivs[6].container.mousePressed(function() {
-        if(!noiseDivs[2].hasAction) {
-            whiteNoise.stop();
-            vinyl.play();
-            vinyl.loop(35);
-        }
-
-        currentNoise = 'vinyl';
-    });
+    currentNoise = "vinyl";
+  });
 }
 
 function draw() {
-    background(106);
+  var na = noiseDivs[0];
 
-    // Map mouseX to a lowpass freq from the FFT spectrum range: 10Hz - 22050Hz
-    filterFreq = map(noiseDivs[0].marker.x, noiseDivs[0].container.x+(noiseDivs[0].marker.diameter/2), (noiseDivs[0].container.x+noiseDivs[0].container.width)-(noiseDivs[0].marker.diameter/2), 10, 22000);
-    // Map mouseY to resonance/width
-    //filterRes = map(noiseDivs[0].marker.y, noiseDivs[0].container.y, noiseDivs[0].container.y+noiseDivs[0].container.height, 15, 5);
-    // set filter parameters
-    myFilter.set(filterFreq, filterWidth);
-    // set noise volume based on mouseY position
-    whiteNoise.amp(map(noiseDivs[0].marker.y, noiseDivs[0].container.y+(noiseDivs[0].marker.diameter/2), (noiseDivs[0].container.y+noiseDivs[0].container.height)-(noiseDivs[0].marker.diameter/2), 1, 0));
-    vinyl.amp(map(noiseDivs[0].marker.y, noiseDivs[0].container.y+(noiseDivs[0].marker.diameter/2), (noiseDivs[0].container.y+noiseDivs[0].container.height)-(noiseDivs[0].marker.diameter/2), 1, 0));
+  // Map mouseX to a lowpass freq from the FFT spectrum range: 10Hz - 22050Hz
+  console.log();
+  filterFreq = map(
+    noiseDivs[0].marker.x,
+    Math.floor(noiseDivs[0].getX() + noiseDivs[0].marker.diameter / 2),
+    noiseDivs[0].getX() +
+      noiseDivs[0].container.width -
+      noiseDivs[0].marker.diameter / 2,
+    10,
+    22000
+  );
+  // set filter parameters
+  myFilter.set(filterFreq, filterWidth);
+  // set noise volume based on mouseY position
+  whiteNoise.amp(
+    map(
+      noiseDivs[0].marker.y,
+      Math.floor(noiseDivs[0].getY() + noiseDivs[0].marker.diameter / 2),
+      noiseDivs[0].getY() +
+        noiseDivs[0].container.height -
+        noiseDivs[0].marker.diameter / 2,
+      1,
+      0
+    )
+  );
+  vinyl.amp(
+    map(
+      noiseDivs[0].marker.y,
+      Math.floor(noiseDivs[0].getY() + noiseDivs[0].marker.diameter / 2),
+      noiseDivs[0].getY() +
+        noiseDivs[0].container.height -
+        noiseDivs[0].marker.diameter / 2,
+      1,
+      0
+    )
+  );
 
-    //masterVolume(map(noiseDivs[1].marker.x, 0, noiseDivs[1].container.width, 0, 1));
-    ambiance.setVolume(map(noiseDivs[1].marker.x, 0, noiseDivs[1].container.width, 0, 1));
-    // Draw every value in the FFT spectrum analysis where
-    // x = lowest (10Hz) to highest (22050Hz) frequencies,
-    // h = energy / amplitude at that frequency
-    var spectrum = noiseFFT.analyze();
+  // Draw every value in the FFT spectrum analysis where
+  // x = lowest (10Hz) to highest (22050Hz) frequencies,
+  // h = energy / amplitude at that frequency
+  var spectrum = noiseFFT.analyze();
 
-    fill(106, 156, 154, 70);
-    for (var i = 0; i< spectrum.length; i++){
-        var x = map(i, 0, spectrum.length, noiseDivs[0].container.x, noiseDivs[0].container.x+noiseDivs[0].container.width);
-        var h = -noiseDivs[0].container.height + map(spectrum[i], 0, 255, noiseDivs[0].container.height, noiseDivs[0].container.y);
+  fill("rgba(106, 106, 106, 0.75)");
+  rect(na.getX(), na.getY(), na.container.width, na.container.height);
 
-        rect(x, noiseDivs[0].container.height, noiseDivs[0].container.width/spectrum.length, h) ;
+  fill(colors[3]);
+  for (var i = 0; i < spectrum.length; i++) {
+    var x = map(
+      i,
+      0,
+      spectrum.length,
+      noiseDivs[0].getX(),
+      noiseDivs[0].getX() + noiseDivs[0].container.width
+    );
+    var h =
+      -noiseDivs[0].container.height +
+      map(
+        spectrum[i],
+        0,
+        255,
+        noiseDivs[0].container.height,
+        noiseDivs[0].getY() - 25
+      );
+
+    rect(
+      x,
+      noiseDivs[0].container.height + noiseDivs[0].getY(),
+      noiseDivs[0].container.width / spectrum.length,
+      h
+    );
+  }
+
+  for (var i = 0; i < noiseDivs.length; i++) {
+    if (i !== 1) {
+      noiseDivs[i].handleAction();
+      noiseDivs[i].show(35);
     }
-
-    for (var i = 0; i< noiseDivs.length; i++) {
-        //print(noiseDivs[i].hasAction);
-        noiseDivs[i].handleAction();
-        noiseDivs[i].show(width*.045);
-    }
+  }
 }
 
-function windowResizeD() {
-    resizeCanvas(windowWidth, windowWidth);
+function windowResized() {
+  var na = noiseDivs[0];
+
+  resizeCanvas(windowWidth, windowHeight);
+
+  background("#ddd");
+
+  na.marker.update(
+    na.getX() + na.container.width / 8,
+    na.getY() + na.container.height / 2
+  );
 }
