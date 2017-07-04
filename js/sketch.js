@@ -31,17 +31,20 @@ function setup() {
   vinyl.disconnect();
   myFilter.process(whiteNoise); // ...and connect to filter so we'll only hear LowPass.
   myFilter.process(vinyl);
-  //whiteNoise.start();
 
   noiseFFT = new p5.FFT();
   noiseFFT.setInput(myFilter);
 
-  var minHeight = windowHeight * 0.8 > 450
-    ? 450
-    : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8;
+  var minHeight = windowHeight * 0.8 > 450 ? 450 : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8,
+      minWidth = windowWidth * 0.45;
+
+  if(windowWidth <= 980) {
+    minWidth = windowWidth * 0.85;
+  }
+
   // White Noise Setup.
   noiseDivs[0] = new NoiseBox();
-  noiseDivs[0].container.size(windowWidth * 0.45, minHeight);
+  noiseDivs[0].container.size(minWidth, minHeight);
   noiseDivs[0].container.id("noise-area").parent("area-container");
 
   var na = noiseDivs[0];
@@ -67,6 +70,11 @@ function setup() {
     .id("all-stop")
     .class("noise-button fa fa-play animated tada")
     .parent("button-container");
+
+  if(windowWidth <= 980) {
+    noiseDivs[2].container.elt.classList.remove('animated');
+    noiseDivs[2].container.elt.classList.remove('tada');
+  }
 
   noiseDivs[2].hasMarker = false;
 
@@ -252,7 +260,7 @@ function draw() {
         0,
         255,
         noiseDivs[0].container.height,
-        noiseDivs[0].getY() - 25
+        noiseDivs[0].getY() - na.container.height * .062
       );
 
     rect(
