@@ -71,6 +71,11 @@ function setup() {
     .class("noise-button fa fa-play animated tada")
     .parent("button-container");
 
+  if(windowWidth <= 980) {
+    noiseDivs[2].container.elt.classList.remove('animated');
+    noiseDivs[2].container.elt.classList.remove('tada');
+  }
+
   noiseDivs[2].hasMarker = false;
 
   noiseDivs[2].container.mouseClicked(function() {
@@ -255,7 +260,7 @@ function draw() {
         0,
         255,
         noiseDivs[0].container.height,
-        noiseDivs[0].getY() - na.container.height * .07
+        noiseDivs[0].getY() - na.container.height * .062
       );
 
     rect(
