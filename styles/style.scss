@@ -186,3 +186,34 @@ canvas {
     content: "Vinyl Pop";
   }
 }
+
+@media (max-width: 736px) {
+  #container {
+    flex-direction: column;
+  }
+
+  #button-container {
+    flex-direction: row;
+  }
+
+  .noise-button {
+    margin-bottom: 10px;
+    margin-left: 5%;
+    margin-top: 10px;
+
+    &:first-of-type {
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 10px;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+}
