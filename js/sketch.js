@@ -13,8 +13,7 @@ var noiseFFT,
   played = false;
 
 function preload() {
-  vinyl = loadSound(
-    "https://s3.us-east-2.amazonaws.com/joshnewton/White+Noise/Vinyl.mp3");
+  vinyl = loadSound('../audio/Vinyl.mp3');
 }
 
 function setup() {
@@ -61,6 +60,12 @@ function setup() {
     noiseDivs[0].hasAction = true;
   });
   noiseDivs[0].container.touchEnded(function() {
+    noiseDivs[0].hasAction = false;
+  });
+  noiseDivs[0].container.mousePressed(function() {
+    noiseDivs[0].hasAction = true;
+  });
+  noiseDivs[0].container.mouseReleased(function() {
     noiseDivs[0].hasAction = false;
   });
 
@@ -200,7 +205,6 @@ function draw() {
   var na = noiseDivs[0];
 
   // Map mouseX to a lowpass freq from the FFT spectrum range: 10Hz - 22050Hz
-  console.log();
   filterFreq = map(
     noiseDivs[0].marker.x,
     Math.floor(noiseDivs[0].getX() + noiseDivs[0].marker.diameter / 2),
