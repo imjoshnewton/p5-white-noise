@@ -13,7 +13,7 @@ var noiseFFT,
   played = false;
 
 function preload() {
-  vinyl = loadSound('/audio/Vinyl.mp3');
+  vinyl = loadSound('/p5-white-noise/audio/Vinyl.mp3');
 }
 
 function setup() {
