@@ -28,6 +28,12 @@
 		"oT": 1,
 		"q": 100
 		},
+	"/docs": {
+		"ft": 65536,
+		"oA": 1,
+		"oAP": "/docs/docs",
+		"oF": 0
+		},
 	"/index.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -54,6 +60,17 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "/docs/js/sketch.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"/libraries/inobounce.min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/docs/libraries/inobounce.min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
