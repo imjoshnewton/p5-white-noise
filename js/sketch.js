@@ -15,7 +15,9 @@ var noiseFFT,
 function preload() {
   try {
     // For local testing
-    vinyl = loadSound('../audio/Vinyl.mp3');
+    vinyl = loadSound('../audio/Vinyl.mp3',
+                      function(){console.log("File loaded.");},
+                      function(){vinyl = loadSound(getURL() + '/audio/Vinyl.mp3');});
   }
   catch(error) {
     console.error(error);
