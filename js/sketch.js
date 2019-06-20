@@ -13,7 +13,15 @@ var noiseFFT,
   played = false;
 
 function preload() {
-  vinyl = loadSound(getURL() + '/audio/Vinyl.mp3');
+  try {
+    // For local testing
+    vinyl = loadSound('../audio/Vinyl.mp3');
+  }
+  catch(error) {
+    console.error(error);
+    // For publishing
+    vinyl = loadSound(getURL() + '/audio/Vinyl.mp3');
+  }
 }
 
 function setup() {
