@@ -35,11 +35,11 @@ function setup() {
   noiseFFT.setInput(myFilter);
 
   var minHeight = windowHeight * 0.8 > 450 ? 450 : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8,
-      minWidth = windowWidth * 0.45;
+      minWidth = windowWidth <= 980 ? windowWidth * 0.85 : windowWidth * 0.55 > 750 ? 750 : windowWidth * 0.55;
+  /*var minHeight = windowHeight * 0.8 > 450 ? 450 : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8,
+      minWidth = windowWidth * 0.45;*/
 
-  if(windowWidth <= 980) {
-    minWidth = windowWidth * 0.85;
-  }
+  minWidth = minWidth < 250 ? 250 : minWidth;
 
   // White Noise Setup.
   noiseDivs[0] = new NoiseBox();
@@ -202,6 +202,7 @@ function setup() {
 }
 
 function draw() {
+  background("#ddd");
   var na = noiseDivs[0];
 
   // Map mouseX to a lowpass freq from the FFT spectrum range: 10Hz - 22050Hz
@@ -289,6 +290,13 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 
   background("#ddd");
+
+  minHeight = windowHeight * 0.8 > 450 ? 450 : windowHeight * 0.8 < 345 ? 345 : windowHeight * 0.8;
+  minWidth = windowWidth <= 980 ? windowWidth * 0.85 : windowWidth * 0.55 > 750 ? 750 : windowWidth * 0.55;
+
+  minWidth = minWidth < 250 ? 250 : minWidth;
+
+  noiseDivs[0].container.size(minWidth, minHeight);
 
   na.marker.update(
     na.getX() + na.container.width / 8,
