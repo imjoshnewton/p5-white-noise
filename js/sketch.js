@@ -19,8 +19,8 @@ function preload() {
                         console.log("File loaded.");
                       },
                       function(){
-                        console.log("File not loaded by reference, loading by path:" + getURL()); 
-                        vinyl = loadSound(getURL() + '/audio/Vinyl.mp3');
+                        console.log("File not loaded by reference, loading by path:" + getURL());
+                        vinyl = loadSound(getURL() + "/audio/Vinyl.mp3");
                       });
 }
 
