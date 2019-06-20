@@ -13,15 +13,19 @@ var noiseFFT,
   played = false;
 
 function preload() {
+    try {
     // For local testing
     vinyl = loadSound('../audio/Vinyl.mp3',
                       function(){
                         console.log("File loaded.");
-                      },
-                      function(){
-                        console.log("File not loaded by reference, loading by path:" + getURL());
-                        vinyl = loadSound(getURL() + "/audio/Vinyl.mp3");
                       });
+    }
+    catch(error) {
+      console.error(error);
+      
+      console.log("File not loaded by reference, loading by path:" + getURL());
+      vinyl = loadSound(getURL() + "/audio/Vinyl.mp3");
+    }
 }
 
 function setup() {
