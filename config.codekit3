@@ -28,12 +28,6 @@
 		"oT": 1,
 		"q": 100
 		},
-	"/docs": {
-		"ft": 65536,
-		"oA": 1,
-		"oAP": "/docs/docs",
-		"oF": 0
-		},
 	"/index.html": {
 		"cB": 0,
 		"ft": 8192,
@@ -154,7 +148,7 @@
 	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-chloe",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 582754274.16038001
+	"lastBuiltDate": 582754393.45684004
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
