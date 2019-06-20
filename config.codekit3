@@ -14,24 +14,24 @@
 		"ft": 8192,
 		"hM": 0,
 		"oA": 2,
-		"oAP": "/build/audio/Vinyl.mp3",
+		"oAP": "/docs/audio/Vinyl.mp3",
 		"oF": 0
 		},
 	"/brown.png": {
 		"ft": 32768,
 		"iS": 259,
 		"oA": 0,
-		"oAP": "/build/brown.png",
+		"oAP": "/docs/brown.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 1,
 		"oT": 1,
 		"q": 100
 		},
-	"/build": {
+	"/docs": {
 		"ft": 65536,
 		"oA": 1,
-		"oAP": "/build/build",
+		"oAP": "/docs/docs",
 		"oF": 0
 		},
 	"/index.html": {
@@ -39,7 +39,7 @@
 		"ft": 8192,
 		"hM": 0,
 		"oA": 2,
-		"oAP": "/build/index.html",
+		"oAP": "/docs/index.html",
 		"oF": 0
 		},
 	"/js/classes.js": {
@@ -48,7 +48,7 @@
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/build/js/classes.js",
+		"oAP": "/docs/js/classes.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -59,7 +59,7 @@
 		"ma": 0,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/build/js/sketch.js",
+		"oAP": "/docs/js/sketch.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -70,7 +70,7 @@
 		"ma": 0,
 		"mi": 1,
 		"oA": 2,
-		"oAP": "/build/libraries/p5.dom.min.js",
+		"oAP": "/docs/libraries/p5.dom.min.js",
 		"oF": 1,
 		"sC": 1,
 		"tS": 0
@@ -81,7 +81,7 @@
 		"ma": 0,
 		"mi": 1,
 		"oA": 2,
-		"oAP": "/build/libraries/p5.min.js",
+		"oAP": "/docs/libraries/p5.min.js",
 		"oF": 1,
 		"sC": 1,
 		"tS": 0
@@ -92,7 +92,7 @@
 		"ma": 0,
 		"mi": 1,
 		"oA": 2,
-		"oAP": "/build/libraries/p5.sound.min.js",
+		"oAP": "/docs/libraries/p5.sound.min.js",
 		"oF": 1,
 		"sC": 1,
 		"tS": 0
@@ -101,7 +101,7 @@
 		"ft": 32768,
 		"iS": 259,
 		"oA": 0,
-		"oAP": "/build/noise.png",
+		"oAP": "/docs/noise.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 1,
@@ -112,7 +112,7 @@
 		"ft": 32768,
 		"iS": 259,
 		"oA": 0,
-		"oAP": "/build/pink.png",
+		"oAP": "/docs/pink.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 1,
@@ -127,7 +127,7 @@
 		"ft": 4,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "/build/styles/style.css",
+		"oAP": "/docs/styles/style.css",
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
@@ -136,7 +136,7 @@
 		"ft": 32768,
 		"iS": 679,
 		"oA": 0,
-		"oAP": "/build/vinyl.png",
+		"oAP": "/docs/vinyl.png",
 		"oF": 0,
 		"oIPL": 0,
 		"opt": 1,
@@ -151,10 +151,10 @@
 "projectAttributes": {
 	"creationDate": 520778087,
 	"displayValue": "p5-white-noise",
-	"displayValueWasSetByUser": 0,
+	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-chloe",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 582750372.54481399
+	"lastBuiltDate": 582751627.14403999
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,
@@ -442,7 +442,7 @@
 	"browserRefreshDelay": 0,
 	"browserslistString": ">0.2%, last 2 versions, Firefox ESR, not dead",
 	"buildFolderActive": 1,
-	"buildFolderName": "build",
+	"buildFolderName": "docs",
 	"cleanBuild": 1,
 	"coffeeLintFlags2": {
 		"arrow_spacing": {
@@ -1609,7 +1609,7 @@
 		},
 	"esLintSourceType": 0,
 	"externalServerAddress": "http://localhost:8888",
-	"gitIgnoreBuildFolder": 1,
+	"gitIgnoreBuildFolder": 0,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",
 	"jsHintFlags2": {
@@ -2196,9 +2196,9 @@
 	"languageDefaultsUserDefined": [
 		],
 	"overrideExternalServerCSS": 0,
-	"previewPathAddition": "build",
+	"previewPathAddition": "docs",
 	"skippedFoldersString": "log, _logs, logs, _cache, cache, /storage/framework/sessions, node_modules",
-	"sourceFolderName": "source",
+	"sourceFolderName": "",
 	"susyVersion": 3,
 	"tsAllowSyntheticDefaultImports": 0,
 	"tsAllowUnreachableCode": 0,
@@ -2503,7 +2503,7 @@
 		},
 	"uglifyMangleNames": 1,
 	"uglifyReservedNamesString": "$",
-	"websiteRelativeRoot": ""
+	"websiteRelativeRoot": "/docs"
 	},
 "settingsFileVersion": "3"
 }
