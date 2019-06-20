@@ -13,17 +13,10 @@ var noiseFFT,
   played = false;
 
 function preload() {
-  try {
     // For local testing
     vinyl = loadSound('../audio/Vinyl.mp3',
                       function(){console.log("File loaded.");},
                       function(){console.log("File not loaded by reference, loading by path:" + getURL() + getURLPath()); vinyl = loadSound(getURL() + getURLPath() + '/audio/Vinyl.mp3');});
-  }
-  catch(error) {
-    console.error(error);
-    // For publishing
-    vinyl = loadSound(getURL() + '/audio/Vinyl.mp3');
-  }
 }
 
 function setup() {
