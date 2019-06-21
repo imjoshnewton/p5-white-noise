@@ -78,7 +78,7 @@ canvas {
     right: -60px; }
 
 #all-stop {
-  animation-iteration-count: infinite;
+  animation-iteration-count: 30;
   animation-delay: 1s; }
   #all-stop.fa-pause {
     line-height: 40px; }

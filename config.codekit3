@@ -69,9 +69,9 @@
 		"ft": 64,
 		"ma": 0,
 		"mi": 1,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "/docs/libraries/inobounce.min.js",
-		"oF": 0,
+		"oF": 1,
 		"sC": 1,
 		"tS": 0
 		},
@@ -165,7 +165,7 @@
 	"displayValueWasSetByUser": 1,
 	"iconImageName": "meme-chloe",
 	"iconImageWasSetByUser": 0,
-	"lastBuiltDate": 582757494.19318998
+	"lastBuiltDate": 582764746.14299405
 	},
 "projectSettings": {
 	"abortBuildOnError": 1,

@@ -118,7 +118,7 @@ canvas {
 }
 
 #all-stop {
-  animation-iteration-count: infinite;
+  animation-iteration-count: 30;
   animation-delay: 1s;
   &.fa-pause {
     line-height: 40px;
