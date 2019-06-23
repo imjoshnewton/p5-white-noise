@@ -29,6 +29,10 @@ canvas {
   transform: scale(1.01);
   transition: all 250ms;
   width: 40px; }
+  .noise-button.deactivated {
+    opacity: 0.6; }
+    .noise-button.deactivated:hover {
+      transform: scale(1); }
   .noise-button:first-of-type {
     margin-top: 20px; }
     .noise-button:first-of-type:after {
