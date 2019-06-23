@@ -224,6 +224,9 @@ function draw() {
   background("#ddd");
   var na = noiseDivs[0];
 
+  if(vinyl.isLoaded() && noiseDivs[6].container.hasClass('deactivated')) {
+    noiseDivs[6].removeClass("deactivated");
+  } 
   // Map mouseX to a lowpass freq from the FFT spectrum range: 10Hz - 22050Hz
   filterFreq = map(
     noiseDivs[0].marker.x,
