@@ -19,15 +19,15 @@ function preload() {
 function setup() {
   // Loading of audio fikes
   // For local testing
-  vinyl = loadSound('../audio/Vinyl.mp3',
+  /*vinyl = loadSound('../audio/Vinyl.mp3',
                     function () {
                       noiseDivs[6].container.removeClass("deactivated");
-                    });
+                    });*/
   // For publishing
-  /*vinyl = loadSound(getURL() + "/audio/Vinyl.mp3",
+  vinyl = loadSound(getURL() + "/audio/Vinyl.mp3",
                     function () {
                       noiseDivs[6].removeClass("deactivated");
-                    });*/
+                    });
 
   // Basic Canvas Setup.
   canv = createCanvas(windowWidth, windowHeight);
