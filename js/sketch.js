@@ -13,19 +13,22 @@ var noiseFFT,
   played = false;
 
 function preload() {
-    
+
 }
 
 function setup() {
   // Loading of audio fikes
   // For local testing
-  // vinyl = loadSound('../audio/Vinyl.mp3',);
+  /*vinyl = loadSound('../audio/Vinyl.mp3',
+                    function () {
+                      noiseDivs[6].container.removeClass("deactivated");
+                    });*/
   // For publishing
   vinyl = loadSound(getURL() + "/audio/Vinyl.mp3",
                     function () {
                       noiseDivs[6].removeClass("deactivated");
                     });
-  
+
   // Basic Canvas Setup.
   canv = createCanvas(windowWidth, windowHeight);
   noStroke();
@@ -196,9 +199,9 @@ function setup() {
     .id("vinyl-noise")
     .class("noise-button")
     .parent("button-container");
-    
+
   if(!vinyl.isLoaded()) {
-    noiseDivs[6].addClass("deactivated");
+    noiseDivs[6].container.addClass("deactivated");
   }
 
   noiseDivs[6].hasMarker = false;
