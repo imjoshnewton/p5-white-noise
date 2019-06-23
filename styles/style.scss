@@ -47,6 +47,14 @@ canvas {
   transform: scale(1.01);
   transition: all 250ms;
   width: $button-size;
+  
+  &.deactivated {
+    opacity: 0.6;
+    
+    &:hover {
+      transform: scale(1);
+    }
+  }
 
   &:first-of-type {
     margin-top: 20px;
