@@ -241,4 +241,18 @@ canvas {
       display: none;
     }
   }
+
+  #all-stop {
+    &.fa-pause {
+      &:before {
+        margin-left: 0px;
+      }
+    }
+
+    &.fa-play {
+      &:before {
+        margin-left: 0px;
+      }
+    }
+  }
 }
