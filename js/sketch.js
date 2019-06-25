@@ -18,7 +18,7 @@ function preload() {
 
 function setup() {
   // Loading of audio fikes
-  // For local testing
+  // For local testing only - needs to be removed before committing for deploying to server
   /*vinyl = loadSound('../audio/Vinyl.mp3',
                     function () {
                       noiseDivs[6].container.removeClass("deactivated");

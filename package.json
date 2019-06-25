@@ -1,0 +1,34 @@
+{
+  "name": "Noise Machine",
+  "version": "2.0.0",
+  "description": "White noise machine created with p5.js.",
+  "main": "sketch.js",
+  "dependencies": {
+    "gulp": "^4.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "del": "^4.1.1",
+    "es6-promise": "^4.2.8",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^6.0.0",
+    "gulp-jaded": "^0.1.3",
+    "gulp-livereload": "^4.0.1",
+    "gulp-sass": "^3.2.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^2.1.0",
+    "gulp-useref": "^3.1.6",
+    "gulp-util": "^3.0.8",
+    "readable-stream": "^3.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josh Newton",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imjoshnewton/p5-white-noise"
+  }
+}

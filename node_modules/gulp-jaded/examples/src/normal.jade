@@ -1,0 +1,14 @@
+#auction
+  h1 ${auction.title}
+  img(src='${auction.image_url}')
+  br
+  span ${auction.timeRemaining | time}
+
+  .alert-box(show='${auction.endingSoon}')
+    p Hurry up! This auction is ending soon.
+
+  dl
+    dt Highest Bid:
+    dd ${auction.bid | currency}
+    dt Bidder:
+    dd ${auction.bidder}
