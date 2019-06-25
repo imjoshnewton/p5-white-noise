@@ -87,10 +87,11 @@ gulp.task('reload', function () {
 });
 
 gulp.task('default', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio'), 'browserSync', function () {
-  gulp.watch('./styles/**/*.scss', gulp.series('sass', 'reload'));
-  gulp.watch('./*.html', gulp.series('useref', 'reload'));
-  gulp.watch('./js/**/*.js', gulp.series('compress', 'reload', function () {console.log('ran js watch.')}));
+  gulp.watch('./styles/**/*.scss', gulp.series('sass', 'reload')),
+  gulp.watch('./*.html', gulp.series('useref', 'reload')),
+  gulp.watch('./js/**/*.js', gulp.series('compress', 'reload', function () {console.log('ran js watch.')})),
   gulp.watch('./audio/*.mp3', gulp.series('audio', 'reload'));
+  return
 }));
 
 gulp.task('server', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio', 'images')), function () {
