@@ -1,5 +1,5 @@
 {
-  "name": "Noise Machine",
+  "name": "NoiseMachine",
   "version": "2.0.0",
   "description": "White noise machine created with p5.js.",
   "main": "sketch.js",
@@ -24,7 +24,8 @@
     "readable-stream": "^3.4.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf node_modules",
+    "reinstall": "npm run clean && npm install"
   },
   "author": "Josh Newton",
   "license": "ISC",
