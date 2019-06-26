@@ -57,7 +57,7 @@ gulp.task('libraries', function () {
   );
 });
 
-gulp.task('images', function(){
+gulp.task('images', function (){
   return gulp.src('**/*.+(png|jpg|gif|svg)')
   .pipe(imagemin())
   .pipe(gulp.dest('docs'))
@@ -86,7 +86,7 @@ gulp.task('reload', function () {
   });
 });
 
-gulp.task('default', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio'), 'browserSync', function () {
+gulp.task('default', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio'), 'browserSync', function a() {
   gulp.watch('./styles/**/*.scss', gulp.series('sass', 'reload')),
   gulp.watch('./*.html', gulp.series('useref', 'reload')),
   gulp.watch('./js/**/*.js', gulp.series('compress', 'reload', function () {console.log('ran js watch.')})),
@@ -94,7 +94,7 @@ gulp.task('default', gulp.series('clean', gulp.parallel('sass', 'useref', 'libra
   return
 }));
 
-gulp.task('server', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio', 'images')), function () {
+gulp.task('server', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio', 'images')), function b() {
   gulp.watch('styles/**/*.scss', gulp.series('sass'));
   gulp.watch('*.html', gulp.series('useref'));
   gulp.watch('js/**/*.js', gulp.series('compress'));
