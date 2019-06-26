@@ -26,7 +26,7 @@ function setup() {
   // For publishing
   vinyl = loadSound(getURL() + "/audio/Vinyl.mp3",
                     function () {
-                      noiseDivs[6].removeClass("deactivated");
+                      noiseDivs[6].container.removeClass("deactivated");
                     });
 
   // Basic Canvas Setup.
