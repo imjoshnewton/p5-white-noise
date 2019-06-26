@@ -29,9 +29,9 @@ body, html {
 }
 
 canvas {
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
 }
 
 .noise-button {
@@ -43,8 +43,8 @@ canvas {
   display: flex;
   height: $button-size;
   line-height: 40px;
-  margin-left: 25px;
   margin-bottom: 40%;
+  margin-left: 25px;
   text-align: center;
   transform: scale(1.01);
   transition: all 250ms;
@@ -52,10 +52,10 @@ canvas {
 
   & > svg {
     margin-left: 9.5px;
+    min-height: 1.35rem;
+    min-width: 1.35rem;
     opacity: .6;
     vertical-align: middle;
-    min-width: 1.35rem;
-    min-height: 1.35rem;
   }
 
   &.deactivated {

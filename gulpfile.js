@@ -4,11 +4,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-var gulp = require('gulp');
+const { src, task, watch, dest, series, parallel } = require('gulp');
+
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
-var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var gutil = require('gulp-util');
@@ -16,89 +16,88 @@ var imagemin = require('gulp-imagemin');
 var pipeline = require('readable-stream').pipeline;
 var del = require('del');
 
-gulp.task('clean', function(cb) {
+function clean(cb) {
   return del(['docs/*']);
-});
+};
 
-gulp.task('sass', function () {
-  return gulp.src('styles/*.scss')
+function css(cb) {
+  return src('styles/*.scss')
         .pipe(sass({
           outputStyle: 'compressed'
         })).on('error', gutil.log)
         .pipe(autoprefixer()).on('error', gutil.log)
-        .pipe(gulp.dest('docs/styles')).on('error', gutil.log)
+        .pipe(dest('docs/styles')).on('error', gutil.log)
         .pipe(browserSync.reload({
           stream: true
-        }))
-});
+        }));
+};
 
-gulp.task('useref', function () {
-  return gulp.src('*.html')
-    /*.pipe(useref())*/
-    /*.pipe(gulpIf('*.js', uglify())).on('error', gutil.log)*/
-    .pipe(gulp.dest('docs')).on('error', gutil.log)
+function html(cb) {
+  return src('*.html')
+    .pipe(dest('docs')).on('error', gutil.log)
     .pipe(browserSync.reload({
       stream: true
     }));
-});
+};
 
-gulp.task('compress', function () {
+function scripts(cb) {
   return pipeline(
-        gulp.src('js/*.js'),
+        src('js/*.js'),
         uglify(),
-        gulp.dest('docs/js')
+        dest('docs/js'),
+        browserSync.reload({
+          stream: true
+        })
   );
-});
+};
 
-gulp.task('libraries', function () {
+function libraries(cb) {
   return pipeline(
-    gulp.src('libraries/*.js'),
-    gulp.dest('docs/libraries')
+    src('libraries/*.js'),
+    dest('docs/libraries')
   );
-});
+};
 
-gulp.task('images', function (){
-  return gulp.src('**/*.+(png|jpg|gif|svg)')
+function images(cb) {
+  return src('**/*.+(png|jpg|gif|svg)')
   .pipe(imagemin())
-  .pipe(gulp.dest('docs'))
-});
+  .pipe(dest('docs'));
+};
 
-gulp.task('audio', function () {
-  return gulp.src('audio/*.mp3')
-    .pipe(gulp.dest('docs/audio')).on('error', gutil.log)
+function audio(cb) {
+  return src('audio/*.mp3')
+    .pipe(dest('docs/audio')).on('error', gutil.log)
     .pipe(browserSync.reload({
       stream: true
     }));
-});
+};
 
-gulp.task('browserSync', function () {
+function browser_sync(cb) {
   browserSync.init({
     server: {
       baseDir: 'docs'
     },
     browser: "google chrome"
   });
-});
+  cb();
+};
 
-gulp.task('reload', function () {
+function reload(cb) {
   return browserSync.reload({
     stream: true
   });
-});
+};
 
-gulp.task('default', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio'), 'browserSync', function a() {
-  gulp.watch('./styles/**/*.scss', gulp.series('sass', 'reload')),
-  gulp.watch('./*.html', gulp.series('useref', 'reload')),
-  gulp.watch('./js/**/*.js', gulp.series('compress', 'reload', function () {console.log('ran js watch.')})),
-  gulp.watch('./audio/*.mp3', gulp.series('audio', 'reload'));
-  return
-}));
+function watch_files(cb) {
+  watch('./styles/**/*.scss', css);
+  watch('./*.html', html);
+  watch('./js/**/*.js', scripts);
+  cb();
+}
 
-gulp.task('server', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio', 'images')), function b() {
-  gulp.watch('styles/**/*.scss', gulp.series('sass'));
-  gulp.watch('*.html', gulp.series('useref'));
-  gulp.watch('js/**/*.js', gulp.series('compress'));
-  gulp.watch('audio/*.mp3', gulp.series('audio'));
-});
-
-gulp.task('build', gulp.series('clean', gulp.parallel('sass', 'useref', 'libraries', 'compress', 'audio')));
+exports.clean = clean;
+exports.css = css;
+exports.html = html;
+exports.scripts = scripts;
+exports.default = series(clean, parallel(css, html, libraries, scripts, audio), browser_sync, watch_files);
+exports.build = series(clean, parallel(css, html, libraries, scripts, audio));

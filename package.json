@@ -15,7 +15,6 @@
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^6.0.0",
     "gulp-sass": "^3.2.1",
-    "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^2.1.0",
     "gulp-util": "^3.0.8",
     "readable-stream": "^3.4.0"
