@@ -3,9 +3,7 @@
   "version": "2.0.0",
   "description": "White noise machine created with p5.js.",
   "main": "sketch.js",
-  "dependencies": {
-    "gulp": "^4.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "gulp": "^4.0.2",
     "browser-sync": "^2.26.7",
