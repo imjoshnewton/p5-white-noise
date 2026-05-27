@@ -1,33 +1,29 @@
 {
-  "name": "NoiseMachine",
-  "version": "2.0.0",
+  "name": "noise-machine",
+  "version": "3.0.0",
   "description": "White noise machine created with p5.js.",
-  "main": "sketch.js",
-  "dependencies": {},
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "browser-sync": "^2.26.7",
-    "del": "^4.1.1",
-    "es6-promise": "^4.2.8",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-if": "^2.0.2",
-    "gulp-imagemin": "^6.0.0",
-    "gulp-sass": "^3.2.1",
-    "gulp-uglify": "^2.1.0",
-    "gulp-util": "^3.0.8",
-    "readable-stream": "^3.4.0"
-  },
   "scripts": {
-    "build": "gulp build",
-    "start": "gulp",
-    "test": "gulp",
-    "clean": "rm -rf node_modules",
-    "reinstall": "npm run clean && npm install"
+    "dev": "concurrently -n sass,server -c blue,green \"bun run watch:scss\" \"bun run serve\"",
+    "build": "bun run clean && bun run build:dirs && bun run build:scss && bun run build:html && bun run build:js && bun run build:audio && bun run build:images",
+    "clean": "rm -rf docs/*",
+    "build:dirs": "mkdir -p docs/styles docs/js docs/audio",
+    "build:scss": "sass styles/style.scss docs/styles/style.css --style compressed --no-source-map",
+    "watch:scss": "sass --watch styles/style.scss:styles/style.css --style compressed --no-source-map",
+    "build:html": "cp index.html docs/",
+    "build:js": "cp js/*.js docs/js/",
+    "build:audio": "cp -r audio docs/",
+    "build:images": "cp *.png docs/ 2>/dev/null || true",
+    "serve": "browser-sync start --server --files 'styles/style.css, js/**/*.js, *.html' --no-notify"
   },
   "author": "Josh Newton",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/imjoshnewton/p5-white-noise"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.0",
+    "concurrently": "^9.0.0",
+    "sass": "^1.80.0"
   }
 }

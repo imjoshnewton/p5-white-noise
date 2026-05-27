@@ -1,121 +1,83 @@
-// Marker Class
-function Marker(initX, initY) {
-    this.x = initX;
-    this.y = initY;
+class Marker {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
     this.moveX = true;
     this.moveY = true;
-    this.diameter;
-}
+    this.diameter = 0;
+  }
 
-Marker.prototype.init = function (newX, newY, moveX, moveY, diameter) {
-    this.update(newX, newY);
+  init(x, y, moveX, moveY, diameter) {
+    this.update(x, y);
     this.moveX = moveX;
     this.moveY = moveY;
     this.diameter = diameter;
-};
+  }
 
-Marker.prototype.getRadius = function () {
-    return this.diameter/2;
-};
+  get radius() {
+    return this.diameter / 2;
+  }
 
-Marker.prototype.update = function (newX, newY) {
-    if(this.moveX) {
-        this.setX(newX);
-    }
-    if(this.moveY) {
-        this.setY(newY);
-    }
-};
+  update(x, y) {
+    if (this.moveX) this.x = x;
+    if (this.moveY) this.y = y;
+  }
 
-Marker.prototype.setX = function (newX) {
-    this.x = newX;
-};
-
-Marker.prototype.setY = function (newY) {
-    this.y = newY;
-};
-
-Marker.prototype.show = function (width) {
+  show(size) {
     fill(colors[0]);
-    ellipse(this.x, this.y, width, width);
-
+    ellipse(this.x, this.y, size, size);
     fill(colors[1]);
-    ellipse(this.x, this.y, width*.35, width*.35);
-};
-
-// NoiseBox Class
-function NoiseBox() {
-    this.container = createDiv('');
-    this.hasAction = false;
-    this.marker = new Marker(0,0);
-    this.hasMarker = true;
+    ellipse(this.x, this.y, size * 0.35, size * 0.35);
+  }
 }
 
-NoiseBox.prototype.startAction = function () {
-    this.hasAction = true;
-};
+class NoiseBox {
+  constructor() {
+    this.container = createDiv('');
+    this.active = false;
+    this.marker = new Marker(0, 0);
+    this.hasMarker = true;
+  }
 
-NoiseBox.prototype.endAction = function () {
-    this.hasAction = false;
-};
+  get bounds() {
+    const rect = this.container.elt.getBoundingClientRect();
+    return {
+      x: Math.floor(rect.left),
+      y: Math.floor(rect.top),
+      width: this.container.width,
+      height: this.container.height
+    };
+  }
 
-NoiseBox.prototype.toggleAction = function () {
-    if(this.hasAction) {
-        this.hasAction = false;
+  toggleActive() {
+    this.active = !this.active;
+  }
+
+  inBounds(x, y) {
+    const b = this.bounds;
+    return x >= b.x && x <= b.x + b.width && y >= b.y && y <= b.y + b.height;
+  }
+
+  handleAction() {
+    if (!this.active || !this.hasMarker) return;
+
+    let x = mouseX;
+    let y = mouseY;
+
+    if (this.inBounds(mouseX, mouseY)) {
+      const b = this.bounds;
+      const r = this.marker.radius;
+
+      x = constrain(x, b.x + r, b.x + b.width - r);
+      y = constrain(y, b.y + r, b.y + b.height - r);
+
+      this.marker.update(x, y);
     }
-    else {
-        this.hasAction = true;
+  }
+
+  show(size) {
+    if (this.hasMarker) {
+      this.marker.show(size);
     }
-};
-
-NoiseBox.prototype.inBounds = function (x, y) {
-    if(x >= this.getX() && x <= (this.getX()+this.container.width) && y >= this.getY() && y <= (this.getY()+this.container.height)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-};
-
-NoiseBox.prototype.handleAction = function () {
-    var x = mouseX;
-    var y = mouseY;
-
-    if(this.hasAction && this.hasMarker){
-        if(this.inBounds(mouseX, mouseY)) {
-            if(x < this.getX()+this.marker.getRadius()) {
-                x = this.getX()+this.marker.getRadius();
-            }
-            else if (x > (this.getX()+this.container.width)-this.marker.getRadius()) {
-                x = (this.getX()+this.container.width)-this.marker.getRadius();
-            }
-
-            if (y < this.getY()+this.marker.getRadius()) {
-                y = this.getY()+this.marker.getRadius();
-            }
-            else if (y > (this.getY()+this.container.height)-this.marker.getRadius()) {
-                y = (this.getY()+this.container.height)-this.marker.getRadius();
-            }
-
-            this.marker.update(x, y);
-        }
-    }
-};
-
-NoiseBox.prototype.show = function (width) {
-    if(this.hasMarker){
-        this.marker.show(width);
-    }
-};
-
-NoiseBox.prototype.getX = function () {
-  var rect = this.container.elt.getBoundingClientRect();
-  //console.log(rect.left);
-  return Math.floor(rect.left);
-};
-
-NoiseBox.prototype.getY = function () {
-  var rect = this.container.elt.getBoundingClientRect();
-  //console.log(rect.top);
-  return Math.floor(rect.top);
-};
+  }
+}
