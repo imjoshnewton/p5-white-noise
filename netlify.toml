@@ -1,0 +1,3 @@
+[build]
+  command = "npm install -g sass && sass styles/style.scss docs/styles/style.css --style compressed --no-source-map && cp index.html docs/ && mkdir -p docs/js && cp js/*.js docs/js/ && cp -r audio docs/ && cp *.png docs/ 2>/dev/null || true"
+  publish = "docs"
