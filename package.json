@@ -10,7 +10,7 @@
     "build:scss": "sass styles/style.scss docs/styles/style.css --style compressed --no-source-map",
     "watch:scss": "sass --watch styles/style.scss:styles/style.css --style compressed --no-source-map",
     "build:html": "cp index.html docs/",
-    "build:js": "cp js/*.js docs/js/",
+    "build:js": "cp -r js docs/",
     "build:audio": "cp -r audio docs/",
     "build:images": "cp *.png docs/ 2>/dev/null || true",
     "serve": "browser-sync start --server --files 'styles/style.css, js/**/*.js, *.html' --no-notify"

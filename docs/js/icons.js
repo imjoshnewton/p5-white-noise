@@ -19,5 +19,8 @@ const ICONS = {
     + '<circle cx="50" cy="50" r="25" fill="none" stroke="#222" stroke-width="1.5"/>'
     + '<circle cx="50" cy="50" r="15" fill="none" stroke="#222" stroke-width="1.5"/>'
     + '<circle cx="50" cy="50" r="4" fill="#222"/>'
-    + '</svg>'
+    + '</svg>',
+  viewLake: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M2 18c2-1 4 1 6 0s4-1 6 0 4 1 6 0v4H2z"/><circle cx="17" cy="6" r="3"/></svg>',
+  viewGarden: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C9 2 6 5 6 8c0 2 1 4 3 5v9h6v-9c2-1 3-3 3-5 0-3-3-6-6-6z"/></svg>',
+  view2D: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="6" y="6" width="12" height="12" rx="1"/></svg>',
 };
