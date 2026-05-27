@@ -11,6 +11,8 @@ async function setup() {
   const dims = calcDimensions();
   setupNoiseArea(dims);
   setupButtons();
+  ViewManager.init();
+  GlassOverlay.init();
 }
 
 function calcDimensions() {
@@ -124,4 +126,5 @@ function windowResized() {
   noiseArea.container.size(dims.width, dims.height);
   const b = noiseArea.bounds;
   noiseArea.marker.update(b.x + b.width / 8, b.y + b.height / 2);
+  ViewManager.resize();
 }
